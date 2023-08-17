@@ -14,9 +14,10 @@ $(function() {
     let list = $(`<ul id="list-${i}">`).css('list-style', 'none');
     listWrapper.append(list);
 
-    let listItem1 = $(`<li>`).text('Mon-20°C');
-    let listItem2 = $(`<li>`).text('Tue-21°C');
-    let listItem3 = $(`<li>`).text('Wed-22°C');
+    const getRandomTemp = () => Math.floor(Math.random() * 31);
+    let listItem1 = $(`<li>`).text(`Mon-${getRandomTemp()}°C`);
+    let listItem2 = $(`<li>`).text(`Tue-${getRandomTemp()}°C`);
+    let listItem3 = $(`<li>`).text(`Wed-${getRandomTemp()}°C`);
     list.append(listItem1);
     list.append(listItem2);
     list.append(listItem3);
