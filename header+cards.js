@@ -1,60 +1,45 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const header = document.querySelector('header');
-    const heading = document.createElement('h1');
-    heading.textContent = 'PAGE HEADER';
-    header.appendChild(heading);
+$(document).ready(function() {
+    const header = $('header');
+    const heading = $('<h1>').text('PAGE HEADER');
+    heading.appendTo(header);
 
-    const body = document.querySelector('body');
-    const mainDiv = document.createElement('div');
-    body.appendChild(mainDiv);
+    const body = $('body');
+    const mainDiv = $('<div>');
+    mainDiv.appendTo(body);
 
     const cities = ['Vancouver', 'Calgary', 'Edmonton', 'Victoria'];
     const conditions = ['Sunny', 'Cloudy', 'Rainy', 'Storm'];
 
     for (let i = 0; i < cities.length; i++) {
-        const div = document.createElement('div');
-        const city = cities[Math.floor(Math.random() * conditions.length)]
-        const condition = conditions[Math.floor(Math.random() * conditions.length)]; 
-        const temperature = Math.floor(Math.random() * 30) + 1; 
-//styling///////////////////////
+        const div = $('<div>');
+        const city = cities[Math.floor(Math.random() * conditions.length)];
+        const condition = conditions[Math.floor(Math.random() * conditions.length)];
+        const temperature = Math.floor(Math.random() * 30) + 1;
 
-heading.style.display = 'flex'
-heading.style.justifyContent='center'
+        // Add classes to apply styles
+        div.addClass('city-div');
 
-        div.style.display = 'flex';
-        div.style.flexDirection = 'column';
-        div.style.padding = '20px';
-        div.style.backgroundColor = '#f2f2f2';
-        div.style.marginBottom = '10px';
-        div.style.border = '2px solid #ccc';
-        div.style.borderRadius = '8px';
-        div.style.width = '6rem';
-        div.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+        const cityName = $('<p>').text(city);
+        cityName.appendTo(div);
 
-        mainDiv.style.display = 'flex';
-        mainDiv.style.flexDirection = 'row';
-        mainDiv.style.justifyContent = 'space-evenly';
+        const temperatureText = $('<p>').text(`${temperature}°C`);
+        temperatureText.appendTo(div);
 
-        const cityName = document.createElement('p');
-        cityName.textContent = city;
-        div.appendChild(cityName);
+        const conditionText = $('<p>').text(condition);
+        conditionText.appendTo(div);
 
-        const temperatureText = document.createElement('p');
-        temperatureText.textContent = `${temperature}°C`;
-        div.appendChild(temperatureText);
-
-        const conditionText = document.createElement('p');
-        conditionText.textContent = condition;
-        div.appendChild(conditionText);
-
-        div.addEventListener('mouseenter', function() {
-            div.style.transform = 'translateY(-5px)';
-            div.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        div.mouseenter(function() {
+            $(this).css({
+                transform: 'translateY(-5px)',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+            });
         });
 
-        div.addEventListener('mouseleave', function() {
-            div.style.transform = 'translateY(0)';
-            div.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+        div.mouseleave(function() {
+            $(this).css({
+                transform: 'translateY(0)',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+            });
         });
 
         function getRandomColor() {
@@ -65,16 +50,36 @@ heading.style.justifyContent='center'
             }
             return color;
         }
-        div.addEventListener('click', function() {
+
+        div.click(function() {
             const randomBgColor = getRandomColor();
             const randomTextColor = getRandomColor();
 
-            div.style.backgroundColor = randomBgColor;
-            div.style.backgroundColor = randomBgColor;
-            div.style.color = randomTextColor;
+            $(this).css({
+                backgroundColor: randomBgColor,
+                color: randomTextColor
+            });
         });
-///////////////////////////////////////////
 
-        mainDiv.appendChild(div);
+        // Apply styling to the div
+        div.css({
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px',
+            backgroundColor: '#f2f2f2',
+            marginBottom: '10px',
+            border: '2px solid #ccc',
+            borderRadius: '8px',
+            width: '6rem',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+        });
+
+        mainDiv.css({
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly'
+        });
+
+        mainDiv.append(div);
     }
 });
